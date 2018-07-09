@@ -20,9 +20,6 @@ Framework.
     - [Document icons](#document-icons)
     - [Financial products, services, and concepts](#financial-products-services-and-concepts)
     - [Web application icons](#web-application-icons)
-- [**To be deprecated!** Icon font](#icon-font)
-
-
 
 
 ## SVG icons
