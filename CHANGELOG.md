@@ -14,6 +14,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - **cf-atomic-component:** [PATCH] Fixes or silences linter errors in Atomic Component
 - **cf-expandables:** [MINOR] Export the cf-expandables component
 - **cf-expandables:** [MINOR] Export the cf-tables component
+- **cf-atomic-component:** [MINOR] Add expand/collapse event dispatchers
 
 ### Removed
 -

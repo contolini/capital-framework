@@ -42,11 +42,9 @@ function ExpandableTransition( element, classes ) {
     );
 
     if ( contains( element, classObject.OPEN_DEFAULT ) ) {
-      _baseTransition.applyClass( classObject.EXPANDED );
-      element.style.maxHeight = element.scrollHeight + 'px';
+      expand();
     } else {
-      previousHeight = element.scrollHeight;
-      _baseTransition.applyClass( classObject.COLLAPSED );
+      collapse();
     }
 
     return this;
@@ -57,6 +55,13 @@ function ExpandableTransition( element, classes ) {
    */
   function _transitionComplete() {
     this.trigger( BaseTransition.END_EVENT, { target: this } );
+
+    if ( contains( element, classObject.EXPANDED ) ) {
+      this.trigger( 'expandEnd', { target: this } );
+    } else if ( contains( element, classObject.COLLAPSED ) ) {
+      this.trigger( 'collapseEnd', { target: this } );
+    }
+
     if ( contains( element, classObject.EXPANDED ) &&
          element.scrollHeight > previousHeight ) {
       element.style.maxHeight = element.scrollHeight + 'px';
@@ -68,9 +73,13 @@ function ExpandableTransition( element, classes ) {
    * @returns {ExpandableTransition} An instance.
    */
   function toggleExpandable() {
+    this.trigger( BaseTransition.BEGIN_EVENT, { target: this } );
+
     if ( contains( element, classObject.COLLAPSED ) ) {
+      this.trigger( 'expandBegin', { target: this } );
       expand();
     } else {
+      this.trigger( 'collapseBegin', { target: this } );
       collapse();
     }
 
