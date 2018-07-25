@@ -103,6 +103,9 @@ function ExpandableTransition( element, classes ) {
    * @returns {ExpandableTransition} An instance.
    */
   function expand() {
+    if ( element.scrollHeight > previousHeight ) {
+      previousHeight = element.scrollHeight;
+    }
     element.style.maxHeight = previousHeight + 'px';
     _baseTransition.applyClass( classObject.EXPANDED );
 
