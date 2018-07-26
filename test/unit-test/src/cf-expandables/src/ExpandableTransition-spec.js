@@ -103,8 +103,15 @@ describe( 'Expandable', () => {
   describe( 'toggled state', () => {
     it( 'should be expanded when the expandable starts out collapsed',
       () => {
+        let expandBeginFired = false;
+
+        initialized1.addEventListener( 'expandBegin', () => {
+          expandBeginFired = true;
+        } );
+
         initialized1.toggleExpandable();
 
+        expect( expandBeginFired ).toBe( true );
         expect( expandableDom1.style.maxHeight ).not.toBe( '0' );
         expect( expandableDom1.classList.contains(
           'o-expandable_content__expanded'
@@ -117,8 +124,15 @@ describe( 'Expandable', () => {
 
     it( 'should be collapsed when the expandable starts out expanded',
       () => {
+        let collapseBeginFired = false;
+
+        initialized2.addEventListener( 'collapseBegin', () => {
+          collapseBeginFired = true;
+        } );
+
         initialized2.toggleExpandable();
 
+        expect( collapseBeginFired ).toBe( true );
         expect( expandableDom2.style.maxHeight ).toBe( '0' );
         expect( expandableDom2.classList.contains(
           'o-expandable_content__expanded'
