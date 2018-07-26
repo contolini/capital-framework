@@ -13,8 +13,10 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - **capital-framework:** [PATCH] Fixes globing in lint:scripts task
 - **cf-atomic-component:** [PATCH] Fixes or silences linter errors in Atomic Component
 - **cf-expandables:** [MINOR] Export the cf-expandables component
-- **cf-expandables:** [MINOR] Export the cf-tables component
-- **cf-atomic-component:** [MINOR] Add expand/collapse event dispatchers
+- **cf-tables:** [MINOR] Export the cf-tables component
+- **cf-expandables:** [MINOR] Add expand/collapse event dispatchers
+- **cf-atomic-component:** [MAJOR] Move ExpandableTransition to cf-expandables
+- **cf-atomic-component:** [MAJOR] Move ExpandableTransition from cf-atomic-component
 
 ### Removed
 -
