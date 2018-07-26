@@ -12,9 +12,7 @@ const removeClass = domClassList.removeClass;
 const closest = require(
   'cf-atomic-component/src/utilities/dom-closest'
 ).closest;
-const ExpandableTransition = require(
-  'cf-atomic-component/src/utilities/transition/ExpandableTransition'
-);
+const ExpandableTransition = require( './ExpandableTransition' );
 const Events = require( 'cf-atomic-component/src/mixins/Events.js' );
 const Organism = require( 'cf-atomic-component/src/components/Organism' );
 

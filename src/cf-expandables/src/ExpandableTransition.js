@@ -1,8 +1,8 @@
 // Required modules.
-const Events = require( '../../mixins/Events.js' );
-const BaseTransition = require( '../../utilities/transition/BaseTransition' );
-const contains = require( '../../utilities/dom-class-list' ).contains;
-const fnBind = require( '../../utilities/function-bind' ).bind;
+const Events = require( 'cf-atomic-component/src/mixins/Events.js' );
+const BaseTransition = require( 'cf-atomic-component/src/utilities/transition/BaseTransition' );
+const contains = require( 'cf-atomic-component/src/utilities/dom-class-list' ).contains;
+const fnBind = require( 'cf-atomic-component/src/utilities/function-bind' ).bind;
 
 // Exported constants.
 const CLASSES = {
@@ -54,14 +54,17 @@ function ExpandableTransition( element, classes ) {
    * Handle the end of a transition.
    */
   function _transitionComplete() {
+    this.trigger( BaseTransition.END_EVENT, { target: this } );
+
     if ( contains( element, classObject.EXPANDED ) ) {
       this.trigger( 'expandEnd', { target: this } );
-
-      if ( element.scrollHeight > previousHeight ) {
-        element.style.maxHeight = element.scrollHeight + 'px';
-      }
     } else if ( contains( element, classObject.COLLAPSED ) ) {
       this.trigger( 'collapseEnd', { target: this } );
+    }
+
+    if ( contains( element, classObject.EXPANDED ) &&
+         element.scrollHeight > previousHeight ) {
+      element.style.maxHeight = element.scrollHeight + 'px';
     }
   }
 
@@ -70,6 +73,8 @@ function ExpandableTransition( element, classes ) {
    * @returns {ExpandableTransition} An instance.
    */
   function toggleExpandable() {
+    this.trigger( BaseTransition.BEGIN_EVENT, { target: this } );
+
     if ( contains( element, classObject.COLLAPSED ) ) {
       this.trigger( 'expandBegin', { target: this } );
       expand();
