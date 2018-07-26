@@ -48,7 +48,7 @@ const HTML_SNIPPET = `
                 </span>
             </span>
         </button>
-        <div class="o-expandable_content">
+        <div class="o-expandable_content o-expandable_content__onload-open">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing
                 elit. Neque ipsa voluptatibus soluta nobis unde quisquam
@@ -76,34 +76,42 @@ describe( 'Expandable', () => {
     expandableDom2 = document.querySelector( '#test-subject-two' );
   } );
 
-  describe( 'initial state', () => {
-    xit( 'should have collapsed content', () => {
-      expect( expandableDom1.getAttribute( 'data-bound' ) ).toBe( 'true' );
+  describe( 'initialized state', () => {
+    it( 'should be collapsed when the OPEN_DEFAULT class is not present',
+      () => {
+        expect( expandableDom1.getAttribute( 'data-bound' ) ).toBe( 'true' );
 
-      const contentDom = expandableDom1.querySelector(
-        '.o-expandable_content'
-      );
-      expect( contentDom.offsetHeight ).toBe( 0 );
-      expect( contentDom.style.maxHeight ).toBe( '0' );
-      expect( contentDom.classList.contains(
-        'o-expandable_content__expanded'
-      ) ).toBe( false );
-      expect( contentDom.classList.contains(
-        'o-expandable_content__collapsed'
-      ) ).toBe( true );
-    } );
+        const targetDom = expandableDom1.querySelector(
+          '.o-expandable_target'
+        );
+        expect( targetDom.classList.contains(
+          'o-expandable_target__expanded'
+        ) ).toBe( false );
+        expect( targetDom.classList.contains(
+          'o-expandable_target__collapsed'
+        ) ).toBe( true );
+      }
+    );
+
+    it( 'should be expanded when the OPEN_DEFAULT class is present',
+      () => {
+        expect( expandableDom2.getAttribute( 'data-bound' ) ).toBe( 'true' );
+
+        const targetDom = expandableDom2.querySelector(
+          '.o-expandable_target'
+        );
+        expect( targetDom.classList.contains(
+          'o-expandable_target__expanded'
+        ) ).toBe( true );
+        expect( targetDom.classList.contains(
+          'o-expandable_target__collapsed'
+        ) ).toBe( false );
+      }
+    );
   } );
 
   describe( 'interactions', () => {
-    xit( 'should expand on click', () => {
-      /*
-        TODO: Test expandEnd after ExpandableTransition is moved into
-        cf-expandables
-      */
-      let expandBeginFired = false;
-      let expandEndFired = false;
-      let transitionEndFired = false;
-
+    it( 'should expand on click', () => {
       const targetDom = expandableDom1.querySelector(
         '.o-expandable_target'
       );
@@ -111,22 +119,8 @@ describe( 'Expandable', () => {
         '.o-expandable_content'
       );
 
-      _expandable.transition.addEventListener( 'expandBegin', () => {
-        expandBeginFired = true;
-      } );
-      _expandable.transition.addEventListener( 'expandEnd', () => {
-        expandEndFired = true;
-      } );
-      _expandable.transition.addEventListener( 'transitionEnd', () => {
-        transitionEndFired = true;
-      } );
-
       simulateEvent( 'click', targetDom );
-      simulateEvent( 'transitionEnd', contentDom );
 
-      expect( expandBeginFired ).toBe( true );
-      expect( expandEndFired ).toBe( true );
-      expect( transitionEndFired ).toBe( true );
       expect( contentDom.style.maxHeight ).not.toBe( '' );
       expect( contentDom.classList.contains(
         'o-expandable_content__expanded'
@@ -136,14 +130,7 @@ describe( 'Expandable', () => {
       ) ).toBe( false );
     } );
 
-    xit( 'should go back to initial state on second click', () => {
-      /*
-        TODO: Test collapseEnd after ExpandableTransition is moved into
-        cf-expandables
-      */
-      let collapseBeginFired = false;
-      let transitionEndFired = false;
-
+    it( 'should go back to initial state on second click', () => {
       const targetDom = expandableDom1.querySelector(
         '.o-expandable_target'
       );
@@ -151,18 +138,9 @@ describe( 'Expandable', () => {
         '.o-expandable_content'
       );
 
-      _expandable.transition.addEventListener( 'collapseBegin', () => {
-        collapseBeginFired = true;
-      } );
-      _expandable.transition.addEventListener( 'transitionEnd', () => {
-        transitionEndFired = true;
-      } );
-
       simulateEvent( 'click', targetDom );
       simulateEvent( 'click', targetDom );
 
-      expect( collapseBeginFired ).toBe( true );
-      expect( transitionEndFired ).toBe( true );
       expect( contentDom.offsetHeight ).toBe( 0 );
       expect( contentDom.style.maxHeight ).toBe( '0' );
       expect( contentDom.classList.contains(

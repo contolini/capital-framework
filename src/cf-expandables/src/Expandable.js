@@ -65,19 +65,21 @@ function initialize() {
   }
 
   const transition = new ExpandableTransition(
-    this.ui.content, customClasses
+    this.ui.content
   );
   this.transition = transition.init();
 
   const groupElement = closest(
     this.ui.target, '.' + this.classes.groupAccordion
   );
+  /* istanbul ignore next */
   if ( groupElement !== null ) {
     const fn = this.accordionClose.bind( this );
     Events.on( 'CFAccordionClose', fn );
   }
 }
 
+/* istanbul ignore next */
 /**
  * Event handler for when an accordion is closed.
  */
@@ -96,6 +98,7 @@ function onExpandableClick() {
   this.toggleTargetState( this.ui.target );
 }
 
+/* istanbul ignore next */
 /**
  * Event handler for when an expandable is clicked as part of an accordion.
  */

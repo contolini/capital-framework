@@ -41,9 +41,9 @@ function ExpandableTransition( element ) {
     );
 
     if ( contains( element, CLASSES.OPEN_DEFAULT ) ) {
-      expand();
+      this.expand();
     } else {
-      collapse();
+      this.collapse();
     }
 
     return this;
@@ -72,11 +72,9 @@ function ExpandableTransition( element ) {
    */
   function toggleExpandable() {
     if ( contains( element, CLASSES.COLLAPSED ) ) {
-      this.trigger( 'expandBegin', { target: this } );
-      expand();
+      this.expand();
     } else {
-      this.trigger( 'collapseBegin', { target: this } );
-      collapse();
+      this.collapse();
     }
 
     return this;
@@ -87,6 +85,8 @@ function ExpandableTransition( element ) {
    * @returns {ExpandableTransition} An instance.
    */
   function collapse() {
+    this.trigger( 'collapseBegin', { target: this } );
+
     previousHeight = element.scrollHeight;
     element.style.maxHeight = '0';
     _baseTransition.applyClass( CLASSES.COLLAPSED );
@@ -99,6 +99,8 @@ function ExpandableTransition( element ) {
    * @returns {ExpandableTransition} An instance.
    */
   function expand() {
+    this.trigger( 'expandBegin', { target: this } );
+
     if ( element.scrollHeight > previousHeight ) {
       previousHeight = element.scrollHeight;
     }
