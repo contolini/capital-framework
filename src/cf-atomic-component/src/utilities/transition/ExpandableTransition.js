@@ -54,17 +54,14 @@ function ExpandableTransition( element, classes ) {
    * Handle the end of a transition.
    */
   function _transitionComplete() {
-    this.trigger( BaseTransition.END_EVENT, { target: this } );
-
     if ( contains( element, classObject.EXPANDED ) ) {
       this.trigger( 'expandEnd', { target: this } );
+
+      if ( element.scrollHeight > previousHeight ) {
+        element.style.maxHeight = element.scrollHeight + 'px';
+      }
     } else if ( contains( element, classObject.COLLAPSED ) ) {
       this.trigger( 'collapseEnd', { target: this } );
-    }
-
-    if ( contains( element, classObject.EXPANDED ) &&
-         element.scrollHeight > previousHeight ) {
-      element.style.maxHeight = element.scrollHeight + 'px';
     }
   }
 
@@ -73,8 +70,6 @@ function ExpandableTransition( element, classes ) {
    * @returns {ExpandableTransition} An instance.
    */
   function toggleExpandable() {
-    this.trigger( BaseTransition.BEGIN_EVENT, { target: this } );
-
     if ( contains( element, classObject.COLLAPSED ) ) {
       this.trigger( 'expandBegin', { target: this } );
       expand();
