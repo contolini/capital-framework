@@ -51,23 +51,16 @@ const Expandable = Organism.extend( {
  * Initialize a new expandable.
  */
 function initialize() {
-  const customClasses = {
-    BASE_CLASS:   'o-expandable_content__transition',
-    EXPANDED:     'o-expandable_content__expanded',
-    COLLAPSED:    'o-expandable_content__collapsed',
-    OPEN_DEFAULT: 'o-expandable_content__onload-open'
-  };
-
-  if ( contains( this.ui.content, customClasses.OPEN_DEFAULT ) ) {
-    addClass( this.ui.target, this.classes.targetExpanded );
-  } else {
-    addClass( this.ui.target, this.classes.targetCollapsed );
-  }
-
   const transition = new ExpandableTransition(
     this.ui.content
   );
   this.transition = transition.init();
+
+  if ( contains( this.ui.content, transition.CLASSES.EXPANDED ) ) {
+    addClass( this.ui.target, this.classes.targetExpanded );
+  } else {
+    addClass( this.ui.target, this.classes.targetCollapsed );
+  }
 
   const groupElement = closest(
     this.ui.target, '.' + this.classes.groupAccordion

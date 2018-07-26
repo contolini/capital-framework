@@ -1,5 +1,5 @@
 import { simulateEvent } from '../../../../util/simulate-event';
-const Table = require( '../../../../../src/cf-tables/src/Table' );
+const cfTables = require( '../../../../../src/cf-tables/src/Table' );
 
 const HTML_SNIPPET = `
 <table id="test-one" class="o-table o-table__sortable">
@@ -112,7 +112,7 @@ describe( 'Table', () => {
 
   beforeEach( () => {
     document.body.innerHTML = HTML_SNIPPET;
-    Table.init();
+    cfTables.init();
   } );
 
   it( 'should have the .sort-up class sort table on load', () => {

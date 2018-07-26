@@ -30,7 +30,6 @@ let expandableDom2;
 let initialized1;
 let initialized2;
 
-
 describe( 'Expandable', () => {
   beforeEach( () => {
     document.body.innerHTML = HTML_SNIPPET;

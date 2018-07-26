@@ -54,7 +54,6 @@ function ExpandableTransition( element ) {
    * Handle the end of a transition.
    */
   function _transitionComplete() {
-    // console.log( element.classList );
     if ( contains( element, CLASSES.EXPANDED ) ) {
       this.trigger( 'expandEnd', { target: this } );
 
@@ -127,13 +126,11 @@ function ExpandableTransition( element ) {
   this.collapse = collapse;
   this.expand = expand;
 
+  // Public static properties.
+  this.CLASSES = CLASSES;
+
   return this;
 }
 /* eslint-enable max-lines-per-function */
-
-// Public static properties.
-ExpandableTransition.CLASSES = CLASSES;
-ExpandableTransition.EXPANDED = 'expanded';
-ExpandableTransition.COLLAPSED = 'collapsed';
 
 module.exports = ExpandableTransition;

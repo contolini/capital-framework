@@ -1,5 +1,5 @@
 import { simulateEvent } from '../../../../util/simulate-event';
-const Expandable = require(
+const cfExpandables = require(
   '../../../../../src/cf-expandables/src/Expandable'
 );
 
@@ -63,15 +63,12 @@ const HTML_SNIPPET = `
 
 let expandableDom1;
 let expandableDom2;
-let _expandables;
-let _expandable;
 
 describe( 'Expandable', () => {
 
   beforeEach( () => {
     document.body.innerHTML = HTML_SNIPPET;
-    _expandables = Expandable.init();
-    _expandable = _expandables[0];
+    cfExpandables.init();
     expandableDom1 = document.querySelector( '#test-subject-one' );
     expandableDom2 = document.querySelector( '#test-subject-two' );
   } );
@@ -115,18 +112,14 @@ describe( 'Expandable', () => {
       const targetDom = expandableDom1.querySelector(
         '.o-expandable_target'
       );
-      const contentDom = expandableDom1.querySelector(
-        '.o-expandable_content'
-      );
 
       simulateEvent( 'click', targetDom );
 
-      expect( contentDom.style.maxHeight ).not.toBe( '' );
-      expect( contentDom.classList.contains(
-        'o-expandable_content__expanded'
+      expect( targetDom.classList.contains(
+        'o-expandable_target__expanded'
       ) ).toBe( true );
-      expect( contentDom.classList.contains(
-        'o-expandable_content__collapsed'
+      expect( targetDom.classList.contains(
+        'o-expandable_target__collapsed'
       ) ).toBe( false );
     } );
 
@@ -134,20 +127,15 @@ describe( 'Expandable', () => {
       const targetDom = expandableDom1.querySelector(
         '.o-expandable_target'
       );
-      const contentDom = expandableDom1.querySelector(
-        '.o-expandable_content'
-      );
 
       simulateEvent( 'click', targetDom );
       simulateEvent( 'click', targetDom );
 
-      expect( contentDom.offsetHeight ).toBe( 0 );
-      expect( contentDom.style.maxHeight ).toBe( '0' );
-      expect( contentDom.classList.contains(
-        'o-expandable_content__expanded'
+      expect( targetDom.classList.contains(
+        'o-expandable_target__expanded'
       ) ).toBe( false );
-      expect( contentDom.classList.contains(
-        'o-expandable_content__collapsed'
+      expect( targetDom.classList.contains(
+        'o-expandable_target__collapsed'
       ) ).toBe( true );
     } );
 
