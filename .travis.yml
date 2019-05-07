@@ -2,10 +2,23 @@ language: node_js
 node_js:
   - "10"
 before_install:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
-  - npm whoami
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
+after_success:
+  - yarn run build
+  - yarn run docs
+  - cd ./docs/
+  - bundle install
+  - bundle exec jekyll build
+  - REPO_SLUG=${TRAVIS_REPO_SLUG//\//-}
+  - REPO_BRANCH=${TRAVIS_BRANCH//\//-}
 env:
   - secure: OXCVx+umyxvsBBAdDnliKggeeDI6+MJnH01DRz3MSwcG2WMUxtzxKtPL4t03t+wfTmCoGmEMFa8OO1UgwfOoAMNwrEQHPG/AfEnV5A67FKoKY56vUD3rkNcWV5V/IfmQzrYzQSjyjgs19RY+1sD7CKK75bQWYuAQOoNrIpb84gc=
 sudo: false
+deploy:
+  provider: surge
+  project: ./docs/_site
+  domain: "${REPO_SLUG}-${REPO_BRANCH}.surge.sh"
+  skip_cleanup: true
+  on:
+    all_branches: true

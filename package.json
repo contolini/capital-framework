@@ -25,6 +25,7 @@
     "build": "gulp build",
     "cf-link": "lerna exec -- yarn link",
     "cf-unlink": "lerna exec -- yarn unlink",
+    "docs": "gulp docs",
     "test": "gulp test",
     "changelog": "./scripts/generate-changelog.sh",
     "release": "yarn run build && lerna publish",
